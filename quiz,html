@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz Matematika</title>
+<style>
+body{font-family:Arial;padding:20px;background:#f5f5f5}
+.container{max-width:800px;margin:auto;background:#fff;padding:20px;border-radius:10px}
+.question{margin-bottom:15px}
+button{padding:10px 15px;border:none;border-radius:5px;background:#4CAF50;color:white;cursor:pointer}
+.result{font-weight:bold;margin-top:20px}
+</style>
+</head>
+<body>
+<div class="container">
+<h2>Quiz Matematika (30 Soal)</h2>
+<form id="quizForm"></form>
+<button onclick="checkAnswers()">Submit</button>
+<div class="result" id="result"></div>
+</div>
+
+<script>
+const questions = [
+{q:"Modus dari data 70,80,80,80,70,70,90,100,90 adalah...",a:"B",opts:["70","80","90","100"]},
+{q:"Rata-rata 44,42,41,41,40,39,39 adalah...",a:"A",opts:["40.86","41","41.5","42"]},
+{q:"Jumlah siswa nilai 70 dari total 20 adalah...",a:"C",opts:["9","10","11","12"]},
+{q:"Rata-rata dari soal sebelumnya adalah...",a:"A",opts:["74.5","75","76","77"]},
+{q:"Median dari 60,70,70,80,90 adalah...",a:"A",opts:["70","75","80","90"]}
+];
+
+const form = document.getElementById("quizForm");
+
+questions.forEach((item,index)=>{
+let div=document.createElement("div");
+div.className="question";
+let html=`<p>${index+1}. ${item.q}</p>`;
+item.opts.forEach((opt,i)=>{
+let letter=String.fromCharCode(65+i);
+html+=`<label><input type='radio' name='q${index}' value='${letter}'> ${letter}. ${opt}</label><br>`;
+});
+div.innerHTML=html;
+form.appendChild(div);
+});
+
+function checkAnswers(){
+let score=0;
+questions.forEach((item,index)=>{
+let ans=document.querySelector(`input[name='q${index}']:checked`);
+if(ans && ans.value===item.a){score++;}
+});
+document.getElementById("result").innerText="Skor: "+score+" / "+questions.length;
+}
+</script>
+</body>
+</html>
